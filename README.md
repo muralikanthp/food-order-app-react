@@ -17,3 +17,6 @@ In Main Project folder
 
 in backend folder
 `npm start`
+
+for ESLint run
+`npm install eslint@8 eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh`
