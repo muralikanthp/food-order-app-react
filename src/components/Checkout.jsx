@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useActionState } from "react";
 
 import Modal from "./UI/Modal";
 import Input from "./UI/Input";
@@ -35,7 +35,7 @@ export default function Checkout() {
     userProgressCtx.hideCheckout();
   }
 
-  async function checkoutAction(fd) {
+  async function checkoutAction(prevState, fd) {
     const customerData = Object.fromEntries(fd.entries());
 
     await sendRequest(
@@ -44,6 +44,7 @@ export default function Checkout() {
       })
     );
   }
+  const [formState, formAction, pending] = useActionState(checkoutAction, null);
 
   function handleFinish() {
     userProgressCtx.hideCheckout();
@@ -60,7 +61,7 @@ export default function Checkout() {
     </>
   );
 
-  if (isSending) {
+  if (pending) {
     actions = <span>Placing Order...</span>;
   }
 
@@ -85,7 +86,7 @@ export default function Checkout() {
 
   return (
     <Modal open={userProgressCtx.progress === "checkout"} onClose={handleClose}>
-      <form action={checkoutAction}>
+      <form action={formAction}>
         <h2>Checkout</h2>
         <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
 
