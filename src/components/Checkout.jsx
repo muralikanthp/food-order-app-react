@@ -24,6 +24,7 @@ export default function Checkout() {
   );
 
   const {
+    // eslint-disable-next-line no-unused-vars
     isLoading: isSending,
     data,
     error,
@@ -44,6 +45,7 @@ export default function Checkout() {
       })
     );
   }
+  // eslint-disable-next-line no-unused-vars
   const [formState, formAction, pending] = useActionState(checkoutAction, null);
 
   function handleFinish() {
